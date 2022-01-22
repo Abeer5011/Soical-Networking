@@ -1,32 +1,25 @@
-import { FcLike, FcLikePlaceholder } from "react-icons/fc"
-import { useContext } from "react"
-import { Button, Card, Col, Row } from "react-bootstrap"
-import PostContext from "../utils/PostContext"
-import { ImBubble2 } from "react-icons/im"
+import { Card, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
-function Posts(props) {
-  const { post } = props
-  const { likePost, profile } = useContext(PostContext)
-  let liked = false
-  if (profile) liked = post.favorites.includes(profile._id)
 
+function FilterPosts(props) {
+  const { filterPost } = props
   return (
     <>
       <Col style={{ width: 300 }}>
         <Card className="border-0" style={{ width: "18rem", marginTop: 20, marginLeft: 70 }}>
-          <Link to={`/post/${post._id}`}>
-            {post.photo ? (
+          <Link to={`/post/${filterPost._id}`}>
+            {filterPost.photo ? (
               <Card.Img
                 variant="top"
-                src={post.photo}
+                src={filterPost.photo}
                 height={200}
                 style={{ borderRadius: "10px", objectFit: "cover" }}
               />
             ) : null}
-            {post.video ? (
+            {filterPost.video ? (
               <Card height={200} style={{ borderRadius: "10px", objectFit: "cover" }}>
                 <video autoPlay muted loop>
-                  <source src={post.video} type="video/mp4" />
+                  <source src={filterPost.video} type="video/mp4" />
                 </video>
               </Card>
             ) : null}
@@ -64,4 +57,4 @@ function Posts(props) {
   )
 }
 
-export default Posts
+export default FilterPosts

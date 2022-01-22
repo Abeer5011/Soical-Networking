@@ -1,47 +1,58 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { Card, Col, Form, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import InterestMap from "../components/InterestMap"
 import PostContext from "../utils/PostContext"
-import Styles from "../style/Greeting.module.css"
 
 function Greeting() {
-  const { interests, interestPicked } = useContext(PostContext)
+  const { interests, interestPicked, profile } = useContext(PostContext)
 
-  console.log(interests)
+  if (!profile) {
+    return <h1>Loading...</h1>
+  }
+
+  let currentDate = new Date()
+  currentDate = currentDate.getHours()
+
+  let greeting = ""
+
+  if (currentDate >= 1 && currentDate < 12) {
+    greeting = "Good Morning"
+  } else if (currentDate >= 12 && currentDate < 19) {
+    greeting = "Good afternoon"
+  } else {
+    greeting = "Good Evening"
+  }
 
   return (
     <>
+      <h1
+        style={{
+          textAlign: "center",
+          marginTop: 100,
+          fontSize: 50,
+          color: "darksalmon",
+          border: "black",
+          border: "solid",
+          border: 5,
+          padding: 50,
+          backgroundColor: "blanchedalmond",
+        }}
+      >
+        <span>{greeting}</span>
+        <span>, {profile.firstName}</span> <br />
+        <p>What is your interest?</p>
+      </h1>
+
       <Form onSubmit={interestPicked}>
-        <Row md={6} style={{ marginTop: 200 }}>
+        <Row md={5} style={{ marginTop: 200 }}>
           {interests.map(interest => (
             <>
-              <Col>
-                {/* <h2>{interest.interest}</h2> */}
-                <div class="container">
-                  <Form.Label class="option_item">
-                    {/* <label class="option_item"> */}
-                    {/* <input type="checkbox" class="checkbox" /> */}
-                    <div class="option_inner interest">
-                      <div class="tickmark"></div>
-                      <Form.Group class="icon">
-                        <img src={interest.photo} height={200} width={200} />
-                        <span class="name">{interest.interest}</span>
-                        <Form.Check type="checkbox" name="interests" key={interest._id} value={interest._id} />
-                      </Form.Group>
-                      {/* <div class="icon">
-                      </div> */}
-
-                      {/* <Form.Check type="checkbox" name="interests" value={interest._id} /> */}
-                    </div>
-
-                    {/* </label> */}
-                  </Form.Label>
-                </div>
-              </Col>
+              <InterestMap interest={interest} key={interest._id} />
             </>
           ))}
         </Row>
-        <button style={{ marginLeft: 650, marginTop: 50 }} type="submit">
+        <button style={{ marginLeft: 950, marginTop: 30, border: "none" }} type="submit">
           Done
         </button>
       </Form>

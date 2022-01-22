@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
 
 function EmailVerified() {
   const { token } = useParams()
@@ -10,10 +11,12 @@ function EmailVerified() {
   const verifyEmailToken = async () => {
     try {
       await axios.get(`http://localhost:5000/api/auth/verify_email/${token}`)
-      console.log("done")
+
       navigate("/login")
+      toast.success("done")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
       setError(true)
     }
   }

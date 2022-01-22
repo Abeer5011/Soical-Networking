@@ -1,4 +1,4 @@
-import { Card, Col } from "react-bootstrap"
+import { Card, Col, Row } from "react-bootstrap"
 
 function PopularPost(props) {
   const { popularOne } = props

@@ -1,10 +1,9 @@
 import { faCameraRetro, faHome, faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useContext } from "react"
-import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { useContext, useState } from "react"
+import { Container, Nav, Navbar } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import PostContext from "../utils/PostContext"
-import { BsSearch } from "react-icons/bs"
 
 function NavbarItem(props) {
   const { inProfile } = props
@@ -14,19 +13,6 @@ function NavbarItem(props) {
     <>
       <Navbar bg="light" expand="lg" style={{ maxWidth: "1100px" }}>
         <Container fluid>
-          <Form className="d-flex" style={{ marginLeft: 200 }}>
-            <FormControl
-              style={{ borderRadius: "10px", width: 300 }}
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="none">
-              <BsSearch />
-            </Button>
-          </Form>
-
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll></Nav>
@@ -45,9 +31,10 @@ function NavbarItem(props) {
                   <FontAwesomeIcon icon={faHome} />
                 </Link>
 
-                <Link to="/explor" className="navbar-brand" style={{}}>
+                <Link to="/explore" className="navbar-brand" style={{}}>
                   <FontAwesomeIcon icon={faCameraRetro} />
                 </Link>
+
                 <Link to="/" className="navbar-brand" style={{ fontSize: 17 }} onClick={logout}>
                   <FontAwesomeIcon icon={faSignOutAlt} />
                   {/* <i class="fas fa-sign-out-alt"></i> */}

@@ -30,7 +30,7 @@ function EditProfileModal(props) {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>avatar</Form.Label>
-          <Form.Control type="file" accept="image/png/jpg" name="avatar" defaultValue={profile.avatar} />
+          <Form.Control type="file" accept="image/png/jpg" name="avatar" />
         </Form.Group>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>

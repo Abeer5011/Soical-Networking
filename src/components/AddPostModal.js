@@ -1,11 +1,12 @@
 import { faMusic, faPhotoVideo, faUpload, faVideo } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { Button, Col, Form, Modal, Row } from "react-bootstrap"
 import PostContext from "../utils/PostContext"
 
 function AddPostModal(props) {
   const { interests, puplishPost } = useContext(PostContext)
+  const [videoShow, setVideoShow] = useState(false)
   const { show, setShow } = props
   console.log(interests)
 
@@ -18,15 +19,23 @@ function AddPostModal(props) {
           </Modal.Header>
 
           <Form.Group className="mb-3">
-            <Form.Label style={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
-              <FontAwesomeIcon icon={faPhotoVideo} />
-              <FontAwesomeIcon icon={faMusic} className="ms-3 me-3" />
-              <FontAwesomeIcon icon={faVideo} />
+            <Form.Label style={{ display: "flex", justifyContent: "center", marginTop: 10, cursor: "pointer" }}>
+              <FontAwesomeIcon icon={faPhotoVideo} onClick={() => setVideoShow("photoPost")} className="me-3" />
+              <FontAwesomeIcon icon={faVideo} onClick={() => setVideoShow("videoPost")} />
             </Form.Label>
-            <Form.Control type="file" accept="image/png/jpg" name="photo" />
-            {/* <Form.Control type="file" accept="video/mp4" name="video" /> */}
+
+            {videoShow === "photoPost" ? (
+              <Form.Control style={{ color: "blue" }} type="file" accept="image/png/jpg" name="photo" />
+            ) : (
+              videoShow === false
+            )}
+            {videoShow === "videoPost" ? (
+              <Form.Control style={{ color: "red" }} type="file" accept="video/mp4" name="video" />
+            ) : (
+              videoShow === false
+            )}
           </Form.Group>
-          <Form.Label></Form.Label>
+          <Form.Label>Caption</Form.Label>
           <Form.Group className="mb-3">
             <Form.Control as="textarea" name="caption" placeholder="your caption..." />
           </Form.Group>

@@ -11,30 +11,39 @@ import Profile from "./pages/Profile"
 import Home from "./pages/Home"
 import EmailVerified from "./pages/EmailVerified"
 import SinglePost from "./pages/SinglePost"
+import MyOnePost from "./pages/MyOnePost"
+import { ToastContainer, toast } from "react-toastify"
+import ExplorePage from "./pages/ExplorePage"
 
 function App() {
   const [profile, setProfile] = useState(null)
   const [interests, setinterests] = useState([])
   const [posts, setPosts] = useState([])
-  // const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([])
+  const [users, setUsers] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
     getPosts()
+    getUsers()
     if (localStorage.token) {
-      // getComments()
+      getComments()
       getInterests()
       getProfile()
     }
   }, [])
   const signup = async e => {
     e.preventDefault()
+    const form = e.target
     try {
-      const form = e.target
       const avatar = form.elements.avatar.files[0]
-      const avatarRef = firebase.storage().ref("avatars").child(`${avatar.lastModified}-${avatar.name}`)
-      await avatarRef.put(avatar)
-      const avatarUrl = await avatarRef.getDownloadURL()
+      let avatarUrl
+      if (avatar) {
+        const avatarRef = firebase.storage().ref("avatars").child(`${avatar.lastModified}-${avatar.name}`)
+        await avatarRef.put(avatar)
+        avatarUrl = await avatarRef.getDownloadURL()
+      }
+
       const signupBody = {
         firstName: form.elements.firstName.value,
         lastName: form.elements.lastName.value,
@@ -47,8 +56,10 @@ function App() {
       await axios.post("http://localhost:5000/api/auth/signup", signupBody)
 
       navigate("/login")
+      toast.success("verification link is sent to your email, go check your email")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -67,10 +78,11 @@ function App() {
 
       getProfile()
       getInterests()
-
+      toast.success("login is success")
       navigate("/")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -113,16 +125,21 @@ function App() {
     e.preventDefault()
     const form = e.target
     try {
+      const video = form.elements.video.files[0]
+      let videoUrl
+      if (video) {
+        const videoRef = firebase.storage().ref("videos").child(`${video.lastModified}-${video.name}`)
+        await videoRef.put(video)
+        videoUrl = await videoRef.getDownloadURL()
+      }
+
       const photo = form.elements.photo.files[0]
-      const imageRef = firebase.storage().ref("images").child(`${photo.lastModified}-${photo.name}`)
-      await imageRef.put(photo)
-      const imageUrl = await imageRef.getDownloadURL()
-
-      // const video = form.elements.video.files[0]
-      // const videoRef = firebase.storage().ref("videos").child(`${video.lastModified}-${video.name}`)
-      // await videoRef.put(video)
-      // const videoUrl = await videoRef.getDownloadURL()
-
+      let imageUrl
+      if (photo) {
+        const imageRef = firebase.storage().ref("images").child(`${photo.lastModified}-${photo.name}`)
+        await imageRef.put(photo)
+        imageUrl = await imageRef.getDownloadURL()
+      }
       const interests = []
 
       form.elements.interests.forEach(interest => {
@@ -133,7 +150,7 @@ function App() {
 
       const postBody = {
         photo: imageUrl,
-        // video: videoUrl,
+        video: videoUrl,
         interests: interests,
         caption: form.elements.caption.value,
       }
@@ -146,6 +163,7 @@ function App() {
       console.log("success")
       getPosts()
       getProfile()
+      toast.success(" post is added successfuly")
     } catch (error) {
       console.log(error)
     }
@@ -158,10 +176,12 @@ function App() {
           Authorization: localStorage.token,
         },
       })
-      console.log("like")
+
       getPosts()
+      getProfile()
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -189,7 +209,8 @@ function App() {
       navigate("/")
       console.log("added")
     } catch (error) {
-      console.log(error)
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
     }
   }
 
@@ -214,19 +235,21 @@ function App() {
         },
       })
       getProfile()
+      toast.success("edit is success")
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+  const getComments = async postId => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/posts/${postId}/comments`)
+      setComments(response.data)
     } catch (error) {
       console.log(error)
     }
   }
-
-  // const getComments = async postId => {
-  //   try {
-  //     const response = await axios.get(`http://localhost:5000/api/posts/${postId}/comments`)
-  //     setComments(response.data)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
 
   const applyComment = async (e, postId) => {
     e.preventDefault()
@@ -236,6 +259,7 @@ function App() {
       const commentBody = {
         comment: form.elements.comment.value,
       }
+      form.reset()
       await axios.post(`http://localhost:5000/api/posts/${postId}/comments`, commentBody, {
         headers: {
           Authorization: localStorage.token,
@@ -243,7 +267,95 @@ function App() {
       })
 
       getPosts()
-      form.rest()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const editPost = async (e, postId) => {
+    e.preventDefault()
+    const form = e.target
+    try {
+      const photo = form.elements.photo.files[0]
+      const photoRef = firebase.storage().ref("images").child(`${photo.lastModified}-${photo.name}`)
+      await photoRef.put(photo)
+      const photoUrl = await photoRef.getDownloadURL()
+
+      const interests = []
+
+      form.elements.interests.forEach(interest => {
+        if (interest.checked) {
+          interests.push(interest.value)
+        }
+      })
+      const postBody = {
+        photo: photoUrl,
+        caption: form.elements.caption.value,
+        interests: interests,
+      }
+      await axios.put(`http://localhost:5000/api/posts/${postId}`, postBody, {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      })
+      getPosts()
+      getProfile()
+      toast.success("edit is success")
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+  const deletePost = async postId => {
+    try {
+      await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      })
+
+      getProfile()
+      getPosts()
+      navigate("/profile")
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+
+  const deleteComment = async (commentId, postId) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/posts/${postId}/comments/${commentId}`, {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      })
+      getPosts()
+      getComments()
+    } catch (error) {
+      if (error.response) toast.error(error.response.data)
+      else console.log(error)
+    }
+  }
+  // const searchIcon = e => {
+  //   e.preventDefault()
+  //   const form = e.target
+  //   const searchPosts = form.elements.searchPosts.value
+  //   posts.filter(post =>
+  //     post.interests.find(interest =>
+  //       post.interests.find(interest => interest.interest.toLowerCase().includes(searchPosts.toLowerCase()))
+  //     )
+  //   )
+  //   console.log(searchPosts)
+  //   toast.error("not found")
+  // }
+
+  const getUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/auth/users")
+      console.log(response.data)
+      setUsers(response.data)
     } catch (error) {
       console.log(error)
     }
@@ -260,6 +372,11 @@ function App() {
     interestPicked,
     editProfile,
     applyComment,
+    editPost,
+    deletePost,
+    comments,
+    deleteComment,
+    users,
   }
 
   return (
@@ -270,11 +387,23 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/post/:postId" element={<SinglePost />} />
         <Route path="/greeting" element={<Greeting />} />
+        <Route path="/explore" element={<ExplorePage />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Home />} />
-        {/* <Route path="/myPosts" element={<MyPosts />} /> */}
+        <Route path="/myPost/:mypostId" element={<MyOnePost />} />
         <Route path="/email_verified/:token" element={<EmailVerified />} />
       </Routes>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </PostContext.Provider>
   )
 }
