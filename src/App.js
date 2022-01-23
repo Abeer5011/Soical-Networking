@@ -21,6 +21,7 @@ function App() {
   const [posts, setPosts] = useState([])
   const [comments, setComments] = useState([])
   const [users, setUsers] = useState([])
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -140,6 +141,7 @@ function App() {
         await imageRef.put(photo)
         imageUrl = await imageRef.getDownloadURL()
       }
+
       const interests = []
 
       form.elements.interests.forEach(interest => {

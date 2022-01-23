@@ -68,7 +68,7 @@ function Profile() {
           {show === "myPosts" ? (
             <Row md={3} className="g-0" style={{ backgroundColor: "#e5e5e5" }}>
               {profile.myPosts.map(myPost => (
-                <MyPosts myPost={myPost} />
+                <MyPosts key={myPost._id} myPost={myPost} />
               ))}
             </Row>
           ) : null}

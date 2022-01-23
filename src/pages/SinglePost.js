@@ -1,25 +1,25 @@
-import { faComment, faPaperPlane, faSmileBeam, faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
-import { Button, Card, Col, Dropdown, FloatingLabel, Form, InputGroup, Row, SplitButton } from "react-bootstrap"
+import { Button, Card, Col, FloatingLabel, Form, InputGroup, Row, SplitButton } from "react-bootstrap"
 import { FcLike, FcLikePlaceholder } from "react-icons/fc"
 import { ImBubble2 } from "react-icons/im"
 import { useParams } from "react-router-dom"
 import FilterPosts from "../components/FilterPosts"
 import UserProfile from "../components/UserProfile"
-import ViewCommentModal from "../components/ViewCommentModal"
+
 import PostContext from "../utils/PostContext"
 import firebase from "../utils/firebase"
 import CommentsMap from "../components/CommentsMap"
 
 function SinglePost() {
   const { postId } = useParams()
-  const { posts, likePost, profile, applyComment, deleteComment } = useContext(PostContext)
+  const { posts, likePost, profile, applyComment } = useContext(PostContext)
   const [viewComments, setViewComments] = useState(false)
-  const [deleteComments, setDeleteComments] = useState(false)
   const [show, setShow] = useState(false)
   const [showUser, setShowUser] = useState(false)
   const [Url, setUrl] = useState("")
+
   if (posts.length === 0) return <h1>Loading...</h1>
 
   const post = posts.find(post => post._id === postId)
@@ -35,59 +35,21 @@ function SinglePost() {
   //   post.comments.splice(0, 1)
   // }
 
-  const upload = async () => {
-    const storageRef = firebase.ref(`/images/${post.photo.name}`)
+  // const storage = firebase.storage().ref()
+  // console.log(storage)
+  // let starsRef = storage.child(`images/${post.photo.name}`)
+  // console.log(starsRef)
 
-    // [START storage_download_full_example]
-    // Create a reference to the file we want to download
-    var starsRef = storageRef.child(post.photo.name)
-
-    // Get the download URL
-    starsRef.getDownloadURL()
-    await (url => {
-      setUrl(url)
-    }).catch(error => {
-      // A full list of error codes is available at
-      // https://firebase.google.com/docs/storage/web/handle-errors
-      switch (error.code) {
-        case "storage/object-not-found":
-          // File doesn't exist
-          break
-        case "storage/unauthorized":
-          // User doesn't have permission to access the object
-          break
-        case "storage/canceled":
-          // User canceled the upload
-          break
-
-        // ...
-
-        case "storage/unknown":
-          // Unknown error occurred, inspect the server response
-          break
-      }
-    })
-  }
-
-  // Sending File to Firebase Storage
-  // const storageRef = storage.ref(`/images/${post.photo.name}`)
-  // const starsRef = storageRef.child(post.photo.name)
   // starsRef.getDownloadURL().then(url => {
   //   setUrl(url)
   // })
 
-  // storage
-  //   .ref(`/images/${post.photo.name}`)
-  //   .put(post.photo)
-  //   .on("state_changed", alert("success"), alert, () => {
-  //     // Getting Download Link
-  //     storage
-  //       .ref("images")
-  //       .child(post.photo.name)
-  //       .getDownloadURL()
-  //       .then(url => {
-  //         setUrl(url)
-  //       })
+  // firebase
+  //   .ref("images")
+  //   .child(post.photo.name)
+  //   .getDownloadURL()
+  //   .then(url => {
+  //     setUrl(url)
   //   })
 
   return (
@@ -124,7 +86,6 @@ function SinglePost() {
               />
               {show && (
                 <div
-                  // show={show}
                   style={{
                     position: "absolute",
 
@@ -133,9 +94,7 @@ function SinglePost() {
                   }}
                 >
                   <p>
-                    <a href={Url} onClick={upload}>
-                      {Url}
-                    </a>
+                    <a href={Url}>{Url}</a>
                   </p>
                 </div>
               )}
