@@ -41,7 +41,7 @@ function Greeting() {
       >
         <span>{greeting}</span>
         <span>, {profile.firstName}</span> <br />
-        <p>What is your interest?</p>
+        <p>Tell us What is your interests?</p>
       </h1>
 
       <Form onSubmit={interestPicked}>

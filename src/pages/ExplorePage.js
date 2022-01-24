@@ -35,11 +35,18 @@ function ExplorePage() {
           <BsSearch type="submit" />
         </Button> */}
       </Form>
-      <Row md={3} className="g-0" style={{ backgroundColor: "#e5e5e5" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3,1fr)",
+          alignItems: "center",
+          gap: 0,
+        }}
+      >
         {searchPosts.map(post => (
           <ExploreCard key={post._id} post={post} />
         ))}
-      </Row>
+      </div>
     </>
   )
 }

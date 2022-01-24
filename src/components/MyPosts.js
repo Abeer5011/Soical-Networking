@@ -9,7 +9,7 @@ function MyPosts(props) {
   return (
     <>
       <Link to={`/myPost/${myPost._id}`}>
-        <Card className="border-0" style={{ width: "15rem", marginTop: 50, marginLeft: 30 }}>
+        <Card className="border-0" style={{ margin: 5 }}>
           {myPost.photo ? (
             <Card.Img
               variant="top"

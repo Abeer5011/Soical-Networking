@@ -24,7 +24,7 @@ function Posts(props) {
               />
             ) : null}
             {post.video ? (
-              <Card height={200} style={{ borderRadius: "10px", objectFit: "cover" }}>
+              <Card style={{ borderRadius: "10px", objectFit: "cover" }}>
                 <video autoPlay muted loop>
                   <source src={post.video} type="video/mp4" />
                 </video>

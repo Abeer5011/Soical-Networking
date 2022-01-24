@@ -26,7 +26,7 @@ function Profile() {
       {/* <NavbarItem inProfile={true} /> */}
 
       <Col>
-        <Card style={{ marginTop: 30, backgroundColor: "#e6e6e6 " }} className="align-items-center">
+        <Card style={{ marginTop: 30 }} className="align-items-center">
           <FontAwesomeIcon
             icon={faEllipsisH}
             onClick={() => setShowEdit(!showEdit)}
@@ -53,36 +53,52 @@ function Profile() {
           <Card.Img variant="top" src={profile.avatar} class="rounded-circle" height={100} width={100} />
 
           <ListGroup className="list-group-flush m-5 " style={{ textAlign: "center" }}>
-            <ListGroupItem style={{ backgroundColor: "#e6e6e6 " }}>{profile.firstName}</ListGroupItem>
-            <ListGroupItem style={{ backgroundColor: "#e6e6e6 " }}>{profile.email}</ListGroupItem>
+            <ListGroupItem>{profile.firstName}</ListGroupItem>
+            <ListGroupItem>{profile.email}</ListGroupItem>
           </ListGroup>
         </Card>
       </Col>
       <Row style={{ width: 200, marginLeft: 800, marginTop: 20 }}>
         <AddPost />
       </Row>
-      <Row style={{ marginLeft: 200 }}>
-        <div>
-          <FontAwesomeIcon icon={faTh} onClick={() => setShow("myPosts")} style={{ marginRight: 20 }} />
+
+      <div>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: 20, marginBottom: 50 }}>
+          <FontAwesomeIcon icon={faTh} onClick={() => setShow("myPosts")} />
           <FontAwesomeIcon icon={faHeart} onClick={() => setShow("favorites")} />
-          {show === "myPosts" ? (
-            <Row md={3} className="g-0" style={{ backgroundColor: "#e5e5e5" }}>
-              {profile.myPosts.map(myPost => (
-                <MyPosts key={myPost._id} myPost={myPost} />
-              ))}
-            </Row>
-          ) : null}
         </div>
-        <div>
-          {show === "favorites" ? (
-            <Row md={3} className="g-0" style={{ backgroundColor: "#e5e5e5" }}>
-              {profile.favorites.map(favorite => (
-                <MyFavorites favorite={favorite} key={favorite._id} />
-              ))}
-            </Row>
-          ) : null}
-        </div>
-      </Row>
+        {show === "myPosts" ? (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3,1fr)",
+              alignItems: "center",
+              gap: 0,
+            }}
+          >
+            {profile.myPosts.map(myPost => (
+              <MyPosts key={myPost._id} myPost={myPost} />
+            ))}
+          </div>
+        ) : null}
+      </div>
+      <div>
+        {show === "favorites" ? (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3,1fr)",
+              alignItems: "center",
+              gap: 0,
+            }}
+          >
+            {profile.favorites.map(favorite => (
+              <MyFavorites favorite={favorite} key={favorite._id} />
+            ))}
+          </div>
+        ) : null}
+      </div>
+
       <EditProfileModal show={editProfile} setShow={setEditProfile} profile={profile} />
     </>
   )

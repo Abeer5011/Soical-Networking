@@ -24,7 +24,7 @@ function Home(props) {
     <>
       <Container style={{ marginTop: 100 }}>
         {/* <NavbarItem inHome={true} /> */}
-        <Row md={3} className="g-0" style={{ backgroundColor: "#e5e5e5" }} id="searchPosts">
+        <Row md={3} className="g-0">
           {postA.map(post => (
             <Posts key={post._id} post={post} />
           ))}
