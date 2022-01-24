@@ -7,7 +7,7 @@ import { ImBubble2 } from "react-icons/im"
 import { useParams } from "react-router-dom"
 import FilterPosts from "../components/FilterPosts"
 import UserProfile from "../components/UserProfile"
-
+import { saveAs } from "file-saver"
 import PostContext from "../utils/PostContext"
 import firebase from "../utils/firebase"
 import CommentsMap from "../components/CommentsMap"
@@ -34,23 +34,19 @@ function SinglePost() {
   // if (post.comments.length > 2) {
   //   post.comments.splice(0, 1)
   // }
+  const saveFile = () => {
+    const storageRef = firebase.storage().ref()
+    console.log(storageRef)
+    // [START storage_download_via_url]
+    storageRef
+      .child(`/images/${post.photo}`)
+      .getDownloadURL()
+      .then(url => {
+        // `url` is the download URL for 'images/stars.jpg'
 
-  // const storage = firebase.storage().ref()
-  // console.log(storage)
-  // let starsRef = storage.child(`images/${post.photo.name}`)
-  // console.log(starsRef)
-
-  // starsRef.getDownloadURL().then(url => {
-  //   setUrl(url)
-  // })
-
-  // firebase
-  //   .ref("images")
-  //   .child(post.photo.name)
-  //   .getDownloadURL()
-  //   .then(url => {
-  //     setUrl(url)
-  //   })
+        saveAs(url)
+      })
+  }
 
   return (
     <>
@@ -93,9 +89,7 @@ function SinglePost() {
                     backgroundColor: "white",
                   }}
                 >
-                  <p>
-                    <a href={Url}>{Url}</a>
-                  </p>
+                  <Button onClick={saveFile}>Click to Download</Button>
                 </div>
               )}
               <Card className="mt-3">

@@ -283,6 +283,14 @@ function App() {
       await photoRef.put(photo)
       const photoUrl = await photoRef.getDownloadURL()
 
+      const video = form.elements.video.files[0]
+      let videoUrl
+      if (video) {
+        const videoRef = firebase.storage().ref("videos").child(`${video.lastModified}-${video.name}`)
+        await videoRef.put(video)
+        videoUrl = await videoRef.getDownloadURL()
+      }
+
       const interests = []
 
       form.elements.interests.forEach(interest => {
@@ -292,6 +300,7 @@ function App() {
       })
       const postBody = {
         photo: photoUrl,
+        video: videoUrl,
         caption: form.elements.caption.value,
         interests: interests,
       }
