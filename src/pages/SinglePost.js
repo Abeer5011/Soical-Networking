@@ -32,14 +32,7 @@ function SinglePost() {
   )
 
   const saveFile = () => {
-    const storage = firebase.storage().ref()
-    storage
-      .child(`images/${post.photo.name}`)
-
-      .getDownloadURL()
-      .then(url => {
-        saveAs(url)
-      })
+    saveAs(post.photo)
   }
 
   return (

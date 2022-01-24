@@ -26,22 +26,21 @@ function Greeting() {
 
   return (
     <>
+      {/* <NavbarItem inProfile={true} /> */}
       <h1
         style={{
           textAlign: "center",
           marginTop: 100,
           fontSize: 50,
-          color: "darksalmon",
-          border: "black",
-          border: "solid",
-          border: 5,
+          color: "black",
+          border: "10px red solid",
           padding: 50,
-          backgroundColor: "blanchedalmond",
+          boxShadow: "5px 10px red",
         }}
       >
         <span>{greeting}</span>
-        <span>, {profile.firstName}</span> <br />
-        <p>Tell us What is your interests?</p>
+        <span> {profile.firstName},</span> <br />
+        <h6 className="text-muted">Tell us What is your interests?</h6>
       </h1>
 
       <Form onSubmit={interestPicked}>

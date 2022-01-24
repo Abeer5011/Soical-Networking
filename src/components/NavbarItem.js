@@ -32,7 +32,7 @@ function NavbarItem(props) {
                   <FontAwesomeIcon icon={faHome} />
                 </Link>
 
-                <Link to="/explore" className="navbar-brand" style={{}}>
+                <Link to="/explore" className="navbar-brand">
                   <FontAwesomeIcon icon={faCameraRetro} />
                 </Link>
 

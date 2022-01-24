@@ -23,8 +23,6 @@ function Profile() {
 
   return (
     <>
-      {/* <NavbarItem inProfile={true} /> */}
-
       <Col>
         <Card style={{ marginTop: 30 }} className="align-items-center">
           <FontAwesomeIcon
@@ -45,6 +43,7 @@ function Profile() {
                 width: 150,
                 cursor: "pointer",
                 textAlign: "center",
+                border: "1px black solid",
               }}
             >
               <span onClick={() => setEditProfile(true)}>edit profile</span>

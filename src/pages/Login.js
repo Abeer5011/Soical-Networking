@@ -1,20 +1,19 @@
 import { useContext } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import PostContext from "../utils/PostContext"
-import pic from "../images/pic1.jpg"
+import pic from "../images/pic1.png"
 
 function Login() {
   const { login } = useContext(PostContext)
 
   return (
     <>
-      <Row style={{ marginTop: 50 }}>
-        <Col>
+      <Row>
+        <Col style={{ marginTop: 100 }}>
           <Form onSubmit={login}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" name="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
