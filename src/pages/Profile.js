@@ -10,6 +10,7 @@ import MyFavorites from "../components/MyFavorites"
 import MyPosts from "../components/MyPosts"
 import NavbarItem from "../components/NavbarItem"
 import PostContext from "../utils/PostContext"
+import styles from "../style/profileStyle.css"
 
 function Profile() {
   const { profile } = useContext(PostContext)
@@ -23,46 +24,71 @@ function Profile() {
 
   return (
     <>
-      <Col>
-        <Card style={{ marginTop: 30 }} className="align-items-center">
-          <FontAwesomeIcon
-            icon={faEllipsisH}
-            onClick={() => setShowEdit(!showEdit)}
-            style={{ marginLeft: 250, marginTop: 10, cursor: "pointer" }}
-            className="border-0"
-          />
+      <NavbarItem inProfile={true} />
+      <>
+        <div class="header-spacer"></div>
+        <div class="header">
+          <div class="header-wrapper">
+            <div class="info">
+              <FontAwesomeIcon
+                icon={faEllipsisH}
+                onClick={() => setShowEdit(!showEdit)}
+                style={{ marginLeft: 250, marginTop: 10, cursor: "pointer" }}
+                className="border-0"
+              />
 
-          {showEdit && (
-            <div
-              showEdit={showEdit}
-              style={{
-                position: "absolute",
-                right: 350,
-                top: -20,
-                backgroundColor: "white",
-                width: 150,
-                cursor: "pointer",
-                textAlign: "center",
-                border: "1px black solid",
-              }}
-            >
-              <span onClick={() => setEditProfile(true)}>edit profile</span>
+              {showEdit && (
+                <div
+                  showEdit={showEdit}
+                  style={{
+                    position: "absolute",
+                    right: 250,
+                    top: 80,
+                    width: 150,
+                    cursor: "pointer",
+                    textAlign: "center",
+                    border: "1px black solid",
+                  }}
+                >
+                  <span onClick={() => setEditProfile(true)}>edit profile</span>
+                </div>
+              )}
+              <div class="avatar">
+                <Card.Img variant="top" src={profile.avatar} height={150} width={150} />
+              </div>
+              <div class="details">
+                <div class="username">{profile.firstName}</div>
+                <div class="bio">{profile.email}</div>
+                {/* <div class="location entypo-location">Mayence, Germany</div> */}
+              </div>
             </div>
-          )}
-          <Card.Img variant="top" src={profile.avatar} class="rounded-circle" height={100} width={100} />
+            <div class="stats">
+              <div class="one">{profile.interestView.length} interestView</div>
+              <div class="two">{profile.favorites.length} favorites</div>
+              <div class="three">{profile.myPosts.length} posts</div>
+            </div>
+          </div>
+        </div>
+      </>
 
-          <ListGroup className="list-group-flush m-5 " style={{ textAlign: "center" }}>
-            <ListGroupItem>{profile.firstName}</ListGroupItem>
-            <ListGroupItem>{profile.email}</ListGroupItem>
-          </ListGroup>
-        </Card>
-      </Col>
       <Row style={{ width: 200, marginLeft: 800, marginTop: 20 }}>
         <AddPost />
       </Row>
 
       <div>
-        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: 20, marginBottom: 50 }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            gap: 20,
+            marginBottom: 50,
+            border: "1px black solid",
+            boxShadow: "5px 10px black",
+            height: 50,
+            alignItems: "center",
+          }}
+        >
           <FontAwesomeIcon icon={faTh} onClick={() => setShow("myPosts")} />
           <FontAwesomeIcon icon={faHeart} onClick={() => setShow("favorites")} />
         </div>

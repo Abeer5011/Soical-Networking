@@ -17,11 +17,9 @@ function FilterPosts(props) {
               />
             ) : null}
             {filterPost.video ? (
-              <Card height={200} style={{ borderRadius: "10px", objectFit: "cover" }}>
-                <video autoPlay muted loop>
-                  <source src={filterPost.video} type="video/mp4" />
-                </video>
-              </Card>
+              <video autoPlay muted loop style={{ height: 200, objectFit: "cover", borderRadius: 10, width: 290 }}>
+                <source src={filterPost.video} type="video/mp4" />
+              </video>
             ) : null}
 
             <Card.ImgOverlay>

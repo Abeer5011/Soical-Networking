@@ -2,8 +2,10 @@ import { useContext, useState } from "react"
 import { Card, Col, Form, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import InterestMap from "../components/InterestMap"
+import NavbarItem from "../components/NavbarItem"
 import PostContext from "../utils/PostContext"
-
+import pic from "../images/pic1.png"
+import styles from "../style/beforeHome.css"
 function Greeting() {
   const { interests, interestPicked, profile } = useContext(PostContext)
 
@@ -26,33 +28,40 @@ function Greeting() {
 
   return (
     <>
-      {/* <NavbarItem inProfile={true} /> */}
-      <h1
+      <NavbarItem inProfile={false} />
+      <div
         style={{
+          marginTop: 40,
           textAlign: "center",
-          marginTop: 100,
           fontSize: 50,
           color: "black",
-          border: "10px red solid",
-          padding: 50,
-          boxShadow: "5px 10px red",
+          padding: "200px 500px 50px 0px",
         }}
       >
-        <span>{greeting}</span>
-        <span> {profile.firstName},</span> <br />
+        <h1>
+          {greeting} {profile.firstName}, <br />
+        </h1>
         <h6 className="text-muted">Tell us What is your interests?</h6>
-      </h1>
+      </div>
 
+      <img
+        src={pic}
+        alt=""
+        width="500"
+        height="500"
+        style={{ objectFit: "cover", position: "absolute", right: 150, top: 50 }}
+      />
       <Form onSubmit={interestPicked}>
-        <Row md={5} style={{ marginTop: 200 }}>
+        {/* <h6>Choose at least 1 </h6> */}
+        <Row md={5} style={{ marginTop: 300 }}>
           {interests.map(interest => (
             <>
               <InterestMap interest={interest} key={interest._id} />
             </>
           ))}
         </Row>
-        <button style={{ marginLeft: 950, marginTop: 30, border: "none" }} type="submit">
-          Done
+        <button class="nextButton" type="submit">
+          <span>Next</span>
         </button>
       </Form>
     </>

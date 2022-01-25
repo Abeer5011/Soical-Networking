@@ -3,6 +3,7 @@ import { Button, Col, Form, Row } from "react-bootstrap"
 import { BsSearch } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import ExploreCard from "../components/ExploreCard"
+import NavbarItem from "../components/NavbarItem"
 import PopularPost from "../components/PopularPost"
 import PostContext from "../utils/PostContext"
 
@@ -18,6 +19,7 @@ function ExplorePage() {
   )
   return (
     <>
+      <NavbarItem inProfile={true} />
       <Form
         style={{ display: "flex", flexDirection: "row", justifyContent: "center", marginTop: 100, marginBottom: 50 }}
       >

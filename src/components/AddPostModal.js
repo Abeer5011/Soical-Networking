@@ -1,7 +1,7 @@
 import { faMusic, faPhotoVideo, faUpload, faVideo } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
-import { Button, Col, Form, Modal, Row } from "react-bootstrap"
+import { Button, Col, Form, Modal, Row, InputGroup } from "react-bootstrap"
 import PostContext from "../utils/PostContext"
 
 function AddPostModal(props) {
@@ -12,10 +12,10 @@ function AddPostModal(props) {
 
   return (
     <>
-      <Modal show={show} style={{ backgroundColor: "#7ca28a" }} onHide={() => setShow(false)}>
+      <Modal show={show} style={{ backgroundColor: "#7ca28a", textAlign: "center" }} onHide={() => setShow(false)}>
         <Form onSubmit={puplishPost} style={{ margin: 50 }}>
           <Modal.Header closeButton>
-            <Modal.Title style={{ textAlign: "center" }}>New Post</Modal.Title>
+            <Modal.Title style={{ marginLeft: 130 }}>New Post</Modal.Title>
           </Modal.Header>
 
           <Form.Group className="mb-3">
@@ -25,12 +25,18 @@ function AddPostModal(props) {
             </Form.Label>
 
             {videoShow === "photoPost" ? (
-              <Form.Control style={{ color: "blue" }} type="file" accept="image/png/jpg" name="photo" />
+              <>
+                <Form.Label>Photo</Form.Label>
+                <Form.Control type="file" accept="image/png/jpg" name="photo" />
+              </>
             ) : (
               videoShow === false
             )}
             {videoShow === "videoPost" ? (
-              <Form.Control style={{ color: "red" }} type="file" accept="video/mp4" name="video" />
+              <>
+                <Form.Label>Video</Form.Label>
+                <Form.Control type="file" accept="video/mp4" name="video" />
+              </>
             ) : (
               videoShow === false
             )}

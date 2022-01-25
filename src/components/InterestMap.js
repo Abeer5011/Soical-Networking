@@ -14,7 +14,7 @@ function InterestMap(props) {
               height={150}
               width={200}
               onClick={() => setOpacity(0.5)}
-              style={{ opacity: opacity, borderRadius: 4, objectFit: "cover" }}
+              style={{ opacity: opacity, borderRadius: 4, objectFit: "cover", cursor: "pointer" }}
             />
             <span style={{ marginLeft: 70 }}>{interest.interest}</span>
             <Form.Check type="checkbox" style={{ display: "none" }} name="interests" value={interest._id} />

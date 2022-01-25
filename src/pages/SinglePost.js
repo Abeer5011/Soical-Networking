@@ -1,4 +1,4 @@
-import { faEllipsisH, faCloudDownloadAlt } from "@fortawesome/free-solid-svg-icons"
+import { faEllipsisH, faCloudDownloadAlt, faArrowCircleDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
 import { Button, Card, Col, FloatingLabel, Form, InputGroup, Row, SplitButton } from "react-bootstrap"
@@ -10,7 +10,8 @@ import UserProfile from "../components/UserProfile"
 import { saveAs } from "file-saver"
 import PostContext from "../utils/PostContext"
 import firebase from "../utils/firebase"
-import CommentsMap from "../components/CommentsMap"
+import ViewCommentModal from "../components/ViewCommentModal"
+import NavbarItem from "../components/NavbarItem"
 
 function SinglePost() {
   const { postId } = useParams()
@@ -37,16 +38,15 @@ function SinglePost() {
 
   return (
     <>
+      <NavbarItem inProfile={true} />
       <Card className="text-white" style={{ marginLeft: 300, marginTop: 50, width: 500, borderRadius: 10 }}>
         {post.photo ? (
           <Card.Img variant="top" src={post.photo} style={{ height: 400, objectFit: "cover", borderRadius: 10 }} />
         ) : null}
         {post.video ? (
-          <Card>
-            <video autoPlay muted loop>
-              <source src={post.video} type="video/mp4" />
-            </video>
-          </Card>
+          <video autoPlay muted loop style={{ height: 400, objectFit: "cover", borderRadius: 10 }}>
+            <source src={post.video} type="video/mp4" />
+          </video>
         ) : null}
         <Card.ImgOverlay>
           <Card.Title>
@@ -56,24 +56,43 @@ function SinglePost() {
             </h6>
           </Card.Title>
 
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 200, backgroundColor: "red" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: 200,
+              backgroundColor: "#e4b363",
+              opacity: 0.9,
+              borderRadius: 15,
+              gap: 5,
+            }}
+          >
+            <h6>{post.caption}</h6>
             {post.interests.map(interest => (
-              <h6># {interest.interest}</h6>
+              <h6> #{interest.interest}</h6>
             ))}
           </div>
 
-          <div style={{ display: "flex", justifyContent: "start", marginTop: 50, backgroundColor: "red" }}>
-            <Button variant="none" onClick={() => likePost(post._id)}>
+          <div style={{ display: "flex", justifyContent: "start", marginTop: 50, gap: 15 }}>
+            <Button
+              variant="none"
+              onClick={() => likePost(post._id)}
+              style={{ backgroundColor: "#e4b363", borderRadius: 15, color: "white", opacity: 0.9 }}
+            >
               {liked ? <FcLike /> : <FcLikePlaceholder />}
+              <span className="ms-2"> {post.favorites.length}</span>
             </Button>
-            <p>{post.favorites.length}</p>
-            <Button variant="none">
+
+            <Button
+              variant="none"
+              style={{ backgroundColor: "#e4b363", borderRadius: 15, color: "white", opacity: 0.9 }}
+            >
               <ImBubble2 onClick={() => setViewComments(true)} />
+              <span className="ms-2">{post.comments.length}</span>
             </Button>
-            <p>{post.comments.length}</p>
           </div>
           <div style={{ display: "flex", justifyContent: "end", cursor: "pointer" }}>
-            <FontAwesomeIcon icon={faCloudDownloadAlt} onClick={saveFile} />
+            <FontAwesomeIcon icon={faArrowCircleDown} onClick={saveFile} />
           </div>
         </Card.ImgOverlay>
       </Card>
@@ -84,9 +103,7 @@ function SinglePost() {
         ))}
       </Row>
 
-      <CommentsMap setShow={setViewComments} show={viewComments} post={post} />
-
-      {/* <ViewCommentModal post={post} /> */}
+      <ViewCommentModal setShow={setViewComments} show={viewComments} post={post} />
     </>
   )
 }

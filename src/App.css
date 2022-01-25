@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@500&display=swap');
-
 html body {
 
 
@@ -11,7 +9,7 @@ html body {
 
 
 * {
-    font-family: "Karla";
+    font-family: "poppins";
     margin: 0;
     padding: 0;
     box-sizing: border-box;

@@ -19,6 +19,7 @@ import { ImBubble2 } from "react-icons/im"
 import { useParams } from "react-router-dom"
 import DeletePostModal from "../components/DeletePostModal"
 import EditPostModal from "../components/EditPostModal"
+import NavbarItem from "../components/NavbarItem"
 import PostContext from "../utils/PostContext"
 
 function MyOnePost() {
@@ -35,6 +36,7 @@ function MyOnePost() {
   if (profile) liked = profile.favorites.includes(profile._id)
   return (
     <>
+      <NavbarItem inProfile={true} />
       <Card style={{ width: 500, marginLeft: 300 }}>
         <Card.Img variant="top" src={myPost?.photo} />
         <div>

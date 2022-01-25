@@ -34,11 +34,11 @@ function EditPostModal(props) {
             ))}
           </Row>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShow(false)}>
+            <Button variant="none" onClick={() => setShow(false)}>
               Close
             </Button>
 
-            <Button variant="primary" type="submit" onClick={() => setShow(false)}>
+            <Button variant="none" type="submit" onClick={() => setShow(false)}>
               Done
             </Button>
           </Modal.Footer>

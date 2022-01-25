@@ -4,6 +4,7 @@ import { useContext, useState } from "react"
 import { Container, Nav, Navbar } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import PostContext from "../utils/PostContext"
+import styles from "../style/navbarStyle.css"
 
 function NavbarItem(props) {
   const { inProfile } = props
@@ -11,46 +12,47 @@ function NavbarItem(props) {
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
-        <Container fluid>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll" style={{ marginRight: 400 }}>
-            <Nav className="me-auto my-2 my-lg-0" navbarScroll></Nav>
+      {inProfile === true ? (
+        <>
+          {!localStorage.token ? (
+            <nav style={styles.navbarS}>
+              <ul>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Sign Up</Link>
+                </li>
+              </ul>
+            </nav>
+          ) : (
+            <nav style={styles.navbarS}>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
 
-            {!localStorage.token ? (
-              <>
-                <Link to="/login" className="navbar-brand" style={{ fontSize: 17 }}>
-                  Login
-                </Link>
-                <Link to="/signup" className="navbar-brand" style={{ fontSize: 17 }}>
-                  Sign Up
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link to="/" className="navbar-brand">
-                  <FontAwesomeIcon icon={faHome} />
-                </Link>
+                <li>
+                  {" "}
+                  <Link to="/explore">Explore</Link>
+                </li>
 
-                <Link to="/explore" className="navbar-brand">
-                  <FontAwesomeIcon icon={faCameraRetro} />
-                </Link>
+                <li>
+                  {" "}
+                  <Link to="/explore" onClick={logout}>
+                    Logout
+                  </Link>
+                </li>
 
-                <Link to="/" className="navbar-brand" style={{ fontSize: 17 }} onClick={logout}>
-                  <FontAwesomeIcon icon={faSignOutAlt} />
-                  {/* <i class="fas fa-sign-out-alt"></i> */}
-                </Link>
-
-                <Link to="/profile" className="navbar-brand">
-                  {/* <img class="rounded-circle" src={profile.avatar} alt="" height={50} /> */}
-
-                  <FontAwesomeIcon icon={faUserCircle} />
-                </Link>
-              </>
-            )}
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+                <li>
+                  {" "}
+                  <Link to="/profile">Profile</Link>
+                </li>
+              </ul>
+            </nav>
+          )}
+        </>
+      ) : null}
     </>
   )
 }

@@ -16,11 +16,9 @@ function ExploreCard(props) {
             />
           ) : null}
           {post.video ? (
-            <Card height={200} style={{ borderRadius: "10px", objectFit: "cover" }}>
-              <video autoPlay muted loop>
-                <source src={post.video} type="video/mp4" />
-              </video>
-            </Card>
+            <video autoPlay muted loop style={{ height: 200, objectFit: "cover", borderRadius: 10, width: 330 }}>
+              <source src={post.video} type="video/mp4" />
+            </video>
           ) : null}
 
           <Card.ImgOverlay>

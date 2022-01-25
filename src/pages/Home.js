@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { Container, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
+import NavbarItem from "../components/NavbarItem"
 import Posts from "../components/Posts"
 import PostContext from "../utils/PostContext"
 
@@ -22,8 +23,8 @@ function Home(props) {
 
   return (
     <>
+      <NavbarItem inProfile={true} />
       <Container style={{ marginTop: 100 }}>
-        {/* <NavbarItem inHome={true} /> */}
         <Row md={3} className="g-0">
           {postA.map(post => (
             <Posts key={post._id} post={post} />

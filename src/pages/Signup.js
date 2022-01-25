@@ -2,12 +2,13 @@ import { useContext } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import PostContext from "../utils/PostContext"
 import pic from "../images/pic2.png"
+import { Link } from "react-router-dom"
 
 function Signup() {
   const { signup } = useContext(PostContext)
   return (
     <>
-      <Row>
+      <Row style={{ marginTop: 100 }}>
         <Col style={{ marginTop: 100 }}>
           <Form onSubmit={signup}>
             <Row className="mb-3">
@@ -55,10 +56,15 @@ function Signup() {
             <Button variant="none" type="submit" style={{ backgroundColor: "#8d99ae" }}>
               SignUp
             </Button>
+            <Link to="/login">
+              <Button variant="none" style={{ backgroundColor: "#8d99ae", margin: 10 }}>
+                Login
+              </Button>
+            </Link>
           </Form>
         </Col>
         <Col>
-          <img src={pic} width="600" height="600" style={{ objectFit: "cover" }} />
+          <img src={pic} width="500" height="500" style={{ objectFit: "cover" }} />
         </Col>
       </Row>
     </>

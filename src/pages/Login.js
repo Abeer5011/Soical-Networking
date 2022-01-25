@@ -1,14 +1,14 @@
 import { useContext } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import PostContext from "../utils/PostContext"
-import pic from "../images/pic1.png"
+import pic from "../images/pic5.png"
 
 function Login() {
   const { login } = useContext(PostContext)
 
   return (
     <>
-      <Row>
+      <Row style={{ marginTop: 100 }}>
         <Col style={{ marginTop: 100 }}>
           <Form onSubmit={login}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -26,7 +26,7 @@ function Login() {
           </Form>
         </Col>
         <Col>
-          <img src={pic} alt="" width="600" height="600" style={{ objectFit: "cover" }} />
+          <img src={pic} alt="" width="500" height="500" style={{ objectFit: "cover" }} />
         </Col>
       </Row>
     </>
