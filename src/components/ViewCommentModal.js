@@ -1,7 +1,18 @@
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
-import { Button, Card, Col, FloatingLabel, Form, InputGroup, Modal, Row, SplitButton } from "react-bootstrap"
+import {
+  Button,
+  Card,
+  Col,
+  FloatingLabel,
+  Form,
+  FormControl,
+  InputGroup,
+  Modal,
+  Row,
+  SplitButton,
+} from "react-bootstrap"
 import PostContext from "../utils/PostContext"
 import CommentsMap from "./CommentsMap"
 
@@ -18,16 +29,12 @@ function ViewCommentModal(props) {
           <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
           <Row>
             <Form onSubmit={e => applyComment(e, post._id)}>
-              <FloatingLabel>
-                <InputGroup className="mb-3">
-                  <SplitButton type="submit" variant="outline-secondary" title="send"></SplitButton>
-                  <Form.Control
-                    aria-label="Text input with dropdown button"
-                    name="comment"
-                    placeholder="write a comment..."
-                  />
-                </InputGroup>
-              </FloatingLabel>
+              <InputGroup className="mb-3">
+                <FormControl placeholder="write a comment..." name="comment" />
+                <Button variant="outline-secondary" type="submit">
+                  send
+                </Button>
+              </InputGroup>
             </Form>
           </Row>
         </Modal.Header>
