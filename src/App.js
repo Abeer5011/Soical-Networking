@@ -219,16 +219,21 @@ function App() {
   const editProfile = async e => {
     e.preventDefault()
     const form = e.target
+
     try {
       const avatar = form.elements.avatar.files[0]
-      const avatarRef = firebase.storage().ref("avatars").child(`${avatar.lastModified}-${avatar.name}`)
-      await avatarRef.put(avatar)
-      const avatarUrl = await avatarRef.getDownloadURL()
+      let avatarUrl
+      if (avatar) {
+        const avatarRef = firebase.storage().ref("avatars").child(`${avatar.lastModified}-${avatar.name}`)
+        await avatarRef.put(avatar)
+        avatarUrl = await avatarRef.getDownloadURL()
+      }
+
       const profileBody = {
         firstName: form.elements.firstName.value,
         lastName: form.elements.lastName.value,
         avatar: avatarUrl,
-        birthDate: form.elements.birthDate.value,
+        // birthDate: form.elements.birthDate.value,
         email: form.elements.email.value,
       }
       await axios.put("http://localhost:5000/api/auth/profile", profileBody, {

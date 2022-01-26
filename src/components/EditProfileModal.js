@@ -24,20 +24,20 @@ function EditProfileModal(props) {
         <Form.Group className="mb-3">
           <Form.Control type="email" name="email" defaultValue={profile.email} />
         </Form.Group>
-        <Form.Group controlId="formGridCity">
+        {/* <Form.Group controlId="formGridCity">
           <Form.Label>Birth Date</Form.Label>
           <Form.Control type="date" name="birthDate" defaultValue={profile.birthDate} />
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group className="mb-3">
           <Form.Label>avatar</Form.Label>
           <Form.Control type="file" accept="image/png/jpg" name="avatar" />
         </Form.Group>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
+          <Button variant="none" onClick={() => setShow(false)}>
             Close
           </Button>
 
-          <Button variant="primary" type="submit">
+          <Button variant="none" type="submit" onClick={() => setShow(false)}>
             Done
           </Button>
         </Modal.Footer>

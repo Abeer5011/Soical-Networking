@@ -54,7 +54,7 @@ function Profile() {
                 </div>
               )}
               <div class="avatar">
-                <Card.Img variant="top" src={profile.avatar} height={150} width={150} />
+                <Card.Img variant="top" src={profile.avatar} height={145} width={150} />
               </div>
               <div class="details">
                 <div class="username">{profile.firstName}</div>
@@ -84,7 +84,7 @@ function Profile() {
             gap: 20,
             marginBottom: 50,
             border: "1px black solid",
-            boxShadow: "5px 10px black",
+            boxShadow: "5px 10px #b3b2b3",
             height: 50,
             alignItems: "center",
           }}

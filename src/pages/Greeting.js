@@ -33,15 +33,15 @@ function Greeting() {
         style={{
           marginTop: 40,
           textAlign: "center",
-          fontSize: 50,
+          fontSize: 30,
           color: "black",
           padding: "200px 500px 50px 0px",
         }}
       >
-        <h1>
-          {greeting} {profile.firstName}, <br />
+        <h1 class="text">
+          {greeting} {profile.firstName}!, <br />
         </h1>
-        <h6 className="text-muted">Tell us What is your interests?</h6>
+        <p className="text-muted">Tell us What is your interests?</p>
       </div>
 
       <img
@@ -51,8 +51,8 @@ function Greeting() {
         height="500"
         style={{ objectFit: "cover", position: "absolute", right: 150, top: 50 }}
       />
+      <span class="arrow arrow-down"></span>
       <Form onSubmit={interestPicked}>
-        {/* <h6>Choose at least 1 </h6> */}
         <Row md={5} style={{ marginTop: 300 }}>
           {interests.map(interest => (
             <>

@@ -36,3 +36,61 @@
     opacity: 1;
     right: 0;
 }
+
+::-moz-selection {
+    background-color: #C3CFE2;
+}
+
+::selection {
+    background-color: #C3CFE2;
+}
+
+body {
+    /* 
+    display: flex;
+    align-items: center;
+    justify-content: center; */
+    background: linear-gradient(to right, #FDFBFB, #EBEDEE 70%);
+}
+
+.text {
+    text-transform: uppercase;
+    background: linear-gradient(to right, #30CFD0 0%, #330867 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 50px;
+    font-family: "Poppins", sans-serif;
+}
+
+
+.arrow {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: inline-block;
+    margin: 10px 0px 0px 300px;
+}
+
+.arrow:before, .arrow:after {
+    content: '';
+    border-color: transparent;
+    border-style: solid;
+    position: absolute;
+}
+
+
+.arrow-down:before {
+    border: none;
+    background-color: #555;
+    height: 50%;
+    width: 30%;
+    top: 0;
+    left: 35%;
+}
+
+.arrow-down:after {
+    left: 0;
+    top: 50%;
+    border-width: 20px 20px;
+    border-top-color: #555;
+}

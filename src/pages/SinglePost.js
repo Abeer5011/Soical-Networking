@@ -33,7 +33,13 @@ function SinglePost() {
   )
 
   const saveFile = () => {
-    saveAs(post.photo)
+    if (post.photo) {
+      saveAs(post.photo)
+    }
+
+    if (post.video) {
+      saveAs(post.video)
+    }
   }
 
   return (
@@ -61,8 +67,6 @@ function SinglePost() {
               display: "flex",
               justifyContent: "center",
               marginTop: 200,
-              backgroundColor: "#e4b363",
-              opacity: 0.9,
               borderRadius: 15,
               gap: 5,
             }}
@@ -74,19 +78,12 @@ function SinglePost() {
           </div>
 
           <div style={{ display: "flex", justifyContent: "start", marginTop: 50, gap: 15 }}>
-            <Button
-              variant="none"
-              onClick={() => likePost(post._id)}
-              style={{ backgroundColor: "#e4b363", borderRadius: 15, color: "white", opacity: 0.9 }}
-            >
+            <Button variant="none" onClick={() => likePost(post._id)} style={{ borderRadius: 15, color: "white" }}>
               {liked ? <FcLike /> : <FcLikePlaceholder />}
               <span className="ms-2"> {post.favorites.length}</span>
             </Button>
 
-            <Button
-              variant="none"
-              style={{ backgroundColor: "#e4b363", borderRadius: 15, color: "white", opacity: 0.9 }}
-            >
+            <Button variant="none" style={{ borderRadius: 15, color: "white" }}>
               <ImBubble2 onClick={() => setViewComments(true)} />
               <span className="ms-2">{post.comments.length}</span>
             </Button>
