@@ -63,7 +63,6 @@ function Profile() {
               </div>
             </div>
             <div class="stats">
-              <div class="one">{profile.interestView.length} interestView</div>
               <div class="two">{profile.favorites.length} favorites</div>
               <div class="three">{profile.myPosts.length} posts</div>
             </div>

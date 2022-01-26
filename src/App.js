@@ -354,18 +354,6 @@ function App() {
       else console.log(error)
     }
   }
-  // const searchIcon = e => {
-  //   e.preventDefault()
-  //   const form = e.target
-  //   const searchPosts = form.elements.searchPosts.value
-  //   posts.filter(post =>
-  //     post.interests.find(interest =>
-  //       post.interests.find(interest => interest.interest.toLowerCase().includes(searchPosts.toLowerCase()))
-  //     )
-  //   )
-  //   console.log(searchPosts)
-  //   toast.error("not found")
-  // }
 
   const getUsers = async () => {
     try {
