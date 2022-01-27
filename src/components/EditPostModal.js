@@ -10,29 +10,30 @@ function EditPostModal(props) {
       <Modal show={show} onHide={() => setShow(false)}>
         <Form onSubmit={e => editPost(e, myPost._id)} style={{ margin: 50 }}>
           <Modal.Header closeButton>
-            <Modal.Title>Post</Modal.Title>
+            <Modal.Title>Edit Post</Modal.Title>
           </Modal.Header>
           <Form.Group className="mb-3">
-            <Form.Label>photo</Form.Label>
-            <Form.Control type="file" name="photo" accept="image/png/jpg" />
+            <Form.Label>Photo</Form.Label>
+            <Form.Control type="file" accept="image/png/jpg" name="photo" />
+            <Form.Label>Video</Form.Label>
+            <Form.Control type="file" accept="video/mp4" name="video" />
           </Form.Group>
           <Form.Label>caption</Form.Label>
           <Form.Group className="mb-3">
             <Form.Control type="text" name="caption" defaultValue={myPost?.caption} />
           </Form.Group>
           <Form.Label>Interests</Form.Label>
-          <Row>
+          <Row className="mb-3" md={4}>
             {interests?.map(interest => (
               <>
                 <Col>
-                  <Form.Group className="mb-3">
-                    <p>{interest.interest}</p>
-                    <Form.Check type="checkbox" name="interests" key={interest._id} value={interest._id} />
-                  </Form.Group>
+                  <p>#{interest.interest}</p>
+                  <Form.Check type="checkbox" name="interests" key={interest._id} value={interest._id} />
                 </Col>
               </>
             ))}
           </Row>
+
           <Modal.Footer>
             <Button variant="none" onClick={() => setShow(false)}>
               Close
