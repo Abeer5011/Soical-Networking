@@ -20,26 +20,24 @@ function AddPostModal(props) {
 
           <Form.Group className="mb-3">
             <Form.Label style={{ display: "flex", justifyContent: "center", marginTop: 10, cursor: "pointer" }}>
-              <FontAwesomeIcon icon={faPhotoVideo} onClick={() => setVideoShow("photoPost")} className="me-3" />
-              <FontAwesomeIcon icon={faVideo} onClick={() => setVideoShow("videoPost")} />
+              <FontAwesomeIcon icon={faPhotoVideo} className="me-3" />
+              <FontAwesomeIcon icon={faVideo} />
             </Form.Label>
 
-            {videoShow === "photoPost" ? (
-              <>
-                <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" accept="image/png/jpg" name="photo" />
-              </>
-            ) : (
-              videoShow === false
-            )}
-            {videoShow === "videoPost" ? (
-              <>
+            {/* { name === "photo" ? ( */}
+            <>
+              <Form.Label>Photo</Form.Label>
+              <Form.Control type="file" accept="image/png/jpg" name="photo" />
+              <Form.Label>Video</Form.Label>
+              <Form.Control type="file" accept="video/mp4" name="video" />
+            </>
+            {/* ) : null}
+            {name === "video" ? ( */}
+            {/* <>
                 <Form.Label>Video</Form.Label>
                 <Form.Control type="file" accept="video/mp4" name="video" />
-              </>
-            ) : (
-              videoShow === false
-            )}
+              </> */}
+            {/* ) : null} */}
           </Form.Group>
           <Form.Label>Caption</Form.Label>
           <Form.Group className="mb-3">

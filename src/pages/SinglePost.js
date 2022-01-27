@@ -1,7 +1,7 @@
 import { faEllipsisH, faCloudDownloadAlt, faArrowCircleDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext, useState } from "react"
-import { Button, Card, Col, FloatingLabel, Form, InputGroup, Row, SplitButton } from "react-bootstrap"
+import { Button, Card, Row } from "react-bootstrap"
 import { FcLike, FcLikePlaceholder } from "react-icons/fc"
 import { ImBubble2 } from "react-icons/im"
 import { useParams } from "react-router-dom"
@@ -9,7 +9,7 @@ import FilterPosts from "../components/FilterPosts"
 import UserProfile from "../components/UserProfile"
 import { saveAs } from "file-saver"
 import PostContext from "../utils/PostContext"
-import firebase from "../utils/firebase"
+
 import ViewCommentModal from "../components/ViewCommentModal"
 import NavbarItem from "../components/NavbarItem"
 
