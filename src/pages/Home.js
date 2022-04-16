@@ -5,8 +5,7 @@ import NavbarItem from "../components/NavbarItem"
 import Posts from "../components/Posts"
 import PostContext from "../utils/PostContext"
 
-function Home(props) {
-  const { search } = props
+function Home() {
   const { posts, profile } = useContext(PostContext)
   const navigate = useNavigate()
   if (!profile) return <h1>Lodaing...</h1>

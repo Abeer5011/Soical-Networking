@@ -6,9 +6,7 @@ import { ImBubble2 } from "react-icons/im"
 import { Link } from "react-router-dom"
 function Posts(props) {
   const { post } = props
-  const { likePost, profile } = useContext(PostContext)
-  let liked = false
-  if (profile) liked = post.favorites.includes(profile._id)
+  const { profile } = useContext(PostContext)
 
   return (
     <>
